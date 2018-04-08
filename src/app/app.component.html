@@ -7,12 +7,11 @@
 </div>
 <svg viewBox="0 0 450 450">
    
-        <svg:g app-svg [centro]="centro" [poleX]="poleVectorX" 
-        [poleY] = "poleVectorY" [efectorX]="positionX" [efectorY]="positionY" />
+        <svg:g app-svg [centro]="centro" [efectorX]="positionX" [efectorY]="positionY" />
 </svg>
 
 
 <input [(ngModel)]="theta1" (change)="thetaChange()" type="range" [min]="0" [max]="3"> {{theta1}} <br>
 <input [(ngModel)]="theta2" (change)="thetaChange()" type="range" [min]="0" [max]="3"> {{theta2}} <br>
-<input [(ngModel)]="positionX" (change)="positionChange()" type="range" [min]="2" [max]="a1 + a2"> {{positionX}} <br>
-<input [(ngModel)]="positionY" (change)="positionChange()" type="range" [min]="2" [max]="a1 + a2"> {{positionY}} <br>
+<input [(ngModel)]="positionX" (change)="positionChange()" type="range" [min]="2" [max]="360"> {{positionX}} <br>
+<input [(ngModel)]="positionY" (change)="positionChange()" type="range" [min]="2" [max]="360"> {{positionY}} <br>
