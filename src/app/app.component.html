@@ -1,17 +1,17 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+  <svg viewBox="0 0 650 650">
+    <svg:g app-svg [segmentlength]="segmentlength" [centro]="centro" [efectorX]="positionX" [efectorY]="positionY" />
+  </svg>
+  
+  <div>
+    <input [(ngModel)]="theta1" (change)="thetaChange()" type="range" [min]="0" [max]="360"> {{theta1}}
+    <br>
+    <input [(ngModel)]="theta2" (change)="thetaChange()" type="range" [min]="0" [max]="360"> {{theta2}}
+    <br>
+    <input [(ngModel)]="positionX" (change)="positionChange()" type="range" [min]="-360" [max]="360"> {{positionX - centro}}
+    <br>
+    <input [(ngModel)]="positionY" (change)="positionChange()" type="range" [min]="1" [max]="360"> {{positionY - centro}}
+    <br>
+    <button type="submit" (submit)="onSubmit()">Subir</button>
+  </div>
 </div>
-<svg viewBox="0 0 450 450">
-   
-        <svg:g app-svg [centro]="centro" [efectorX]="positionX" [efectorY]="positionY" />
-</svg>
-
-
-<input [(ngModel)]="theta1" (change)="thetaChange()" type="range" [min]="0" [max]="3"> {{theta1}} <br>
-<input [(ngModel)]="theta2" (change)="thetaChange()" type="range" [min]="0" [max]="3"> {{theta2}} <br>
-<input [(ngModel)]="positionX" (change)="positionChange()" type="range" [min]="2" [max]="360"> {{positionX}} <br>
-<input [(ngModel)]="positionY" (change)="positionChange()" type="range" [min]="2" [max]="360"> {{positionY}} <br>

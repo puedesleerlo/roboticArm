@@ -9,11 +9,13 @@ export class SvgComponent implements OnInit {
   @Input() efectorX: number;
   @Input() efectorY: number;
   // @Input() poleX: number;
-  // @Input() poleY: number;
+  @Input() segmentlength: number;
   @Input() centro: number;
   poleX:number;
   poleY:number;
-  segmentlength= 83;
+  endEffectorX:number;
+  endEffectorY:number;
+  disc=0;
   constructor() { }
 
   ngOnInit() {
@@ -37,6 +39,7 @@ export class SvgComponent implements OnInit {
         poleY = this.centro + diry * this.segmentlength;
         endEffectorX = this.centro + dirx * this.segmentlength * 2;
         endEffectorY = this.centro + diry * this.segmentlength * 2;
+
     } else {
         poleX = this.centro + dirx * len / 2;
         poleY = this.centro + diry * len / 2;
@@ -49,6 +52,9 @@ export class SvgComponent implements OnInit {
     }
     this.poleX = poleX;
     this.poleY = poleY;
-
+    this.endEffectorX= endEffectorX;
+    this.endEffectorY = endEffectorY;
+    this.disc = disc;
+    console.log(disc)
   };
 }
