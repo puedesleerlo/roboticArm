@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+declare var require: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,31 +17,26 @@ export class AppComponent implements OnInit {
   a2 = 9;
   centro = 100;
   segmentlength = 45;
-  ws:WebSocket
   ngOnInit() {
     this.drawArm(this.positionX, this.positionY, -1);
-    this.ws = new WebSocket("ws://localhost:8765/");
-    this.webSocket(this.ws)
-  }
-  webSocket(ws) {
-    // Set event handlers.
-    ws.onopen = function() {
-      console.log("onopen");
-    };
-    
-    ws.onmessage = function(e) {
-      // e.data contains received string.
-      console.log("onmessage: " + e.data);
-    };
-    
-    ws.onclose = function() {
-      console.log("onclose");
-    };
+    var mqtt = require('mqtt')
+    var client  = mqtt.connect('mqtt://test.mosquitto.org')
+    this.mqtt(client);
 
-    ws.onerror = function(e) {
-      console.log("onerror");
-      console.log(e)
-    };
+  }
+  mqtt(client) {
+    // Set event handlers.
+    client.on('connect', function () {
+      client.subscribe('presence')
+      client.publish('presence', 'Hello mqtt')
+    })
+     
+    client.on('message', function (topic, message) {
+      // message is Buffer
+      console.log(message.toString())
+      client.end()
+       
+    })
   }
   thetaChange() {
     
@@ -57,11 +52,11 @@ export class AppComponent implements OnInit {
   toDegrees (angle) {
     return angle * (180 / Math.PI);
   }
-  onSubmit() {
-    let send = '{"theta1": "' + this.theta1  + '", "theta2" : "' + this.theta2 + '"}'
-    this.ws.send(send);
-    console.log(send)
-  }
+  // onSubmit() {
+  //   let send = '{"theta1": "' + this.theta1  + '", "theta2" : "' + this.theta2 + '"}'
+  //   this.ws.send(send);
+  //   console.log(send)
+  // }
   positionChange() {
     let positionX = this.positionX- this.centro;
     let positionY = this.positionY- this.centro;
