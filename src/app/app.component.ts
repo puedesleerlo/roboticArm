@@ -104,6 +104,7 @@ export class AppComponent implements OnInit {
     theta2 =  Math.acos(theta2)
     if(!theta2) theta2 = 0
     let angle = this.toDegrees(this.togleNumber*theta2)
+
     return angle
   }
   get baseAngle() {
@@ -128,26 +129,48 @@ export class AppComponent implements OnInit {
   }
   xRect(time) {
     var xrec = setInterval(() => {
-      console.log("d")
+
       this.x = this.x - 1
+      var message = this.returnMessage()
+      this.client.send(message)
       if(this.x < 4) clearInterval(xrec)   
     }, time)
   }
   yRect(time) {
     var yrec = setInterval(() => {
-      console.log("d")
+ 
       this.y = this.y - 1
+      var message = this.returnMessage()
+      this.client.send(message)
       if(this.y < -10) clearInterval(yrec)   
     }, time)
   }
   yequalx(time) {
     var yx = setInterval(() => {
-      console.log("d")
+
       this.x = this.x - 1
       this.y = this.x
+      var message = this.returnMessage()
+      this.client.send(message)
       if(this.x < 4) clearInterval(yx)   
     }, time)
   }
+  angleTrajectory(time) {
+    var yx = setInterval(() => {
+
+      this.efectorAngle = this.efectorAngle + 1
+      this.baseAngle = this.baseAngle + 1
+      var message = this.returnMessage()
+      this.client.send(message)
+      if(this.efectorAngle > 120) clearInterval(yx) 
+      if(this.baseAngle > 120) clearInterval(yx)  
+    }, time)
+  }
+
+  returnMessage() {
+    return '{"move": {"baseAngle": ' + this.baseAngle + ', "efectorAngle":' + this.efectorAngle + ' }}'
+  }
+  
   reset() {
     this.x = this.a1 + this.a2
     this.y = 0
