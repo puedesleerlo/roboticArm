@@ -1,20 +1,70 @@
+<mat-toolbar>Robot revolute-revolute</mat-toolbar>
 <div class="container">
-  <svg viewBox="0 0 40 10" width="100%" height="100%">
-    <svg:g app-svg [centroX]="centroX" [centroY]="centroY" [efectorX]="x" [efectorY]="y" [poleX]="poleX" [poleY]= "poleY"/>
+  <svg viewBox="-20 -10 40 10" width="100%" height="100%">
+    <svg:g app-svg [centroX]="centroY" [centroY]="centroX" [efectorX]="y" [efectorY]="-1*x" [poleX]="poleY" [poleY]= "-1*poleX"/>
   </svg>
   
   <div>
-    <input [(ngModel)]="baseAngle" (change)="directKinematics()" type="range" [min]="-180" [max]="180"> {{baseAngle}}
-    <br>
-    <input [(ngModel)]="efectorAngle" (change)="directKinematics()" type="range" [min]="-180" [max]="180"> {{efectorAngle}}
-    <br>
-    {{x - centroX}} {{y - centroY}}
-    <br>
-    {{poleX - centroX}} {{poleY - centroY}}
-    <!-- <input [(ngModel)]="positionX" (change)="inverseKinematics()" type="range" [min]="-25" [max]="25"> {{positionX - centro}}
-    <br>
-    <input [(ngModel)]="positionY" (change)="inverseKinematics()" type="range" [min]="-25" [max]="25"> {{positionY - centro}}
-    <br> -->
+      <mat-card class="result">
+          <mat-card-title>Settings</mat-card-title>
+          <mat-card-content>    
+              <mat-slide-toggle [(ngModel)]="togle">{{status}}</mat-slide-toggle>
+              <br>
+              <mat-form-field class="example-full-width">
+                  <input matInput type="number" #time placeholder="TIME">
+              </mat-form-field>
+              <button mat-button (click)="xRect(time.value)">Recta X</button>
+              <button mat-button (click)="yRect(time.value)">Recta Y</button>
+              <button mat-button (click)="yequalx(time.value)">Recta Y/X = 1</button>
+              <button mat-button (click)="reset()">Reset</button>
+  </mat-card-content>
+</mat-card>
+      <mat-card class="result">
+          <mat-card-title>x position</mat-card-title>
+          <mat-card-content>    
+          <mat-slider
+              [max]="17"
+              [min]="0"
+              [(ngModel)]="x"
+              thumb-label="true"
+              step="0.1">
+          </mat-slider>
+  </mat-card-content>
+</mat-card>
+<mat-card class="result">
+    <mat-card-title>y position</mat-card-title>
+    <mat-card-content>    
+    <mat-slider
+        [max]="17"
+        [min]="-17"
+        [(ngModel)]="y"
+        thumb-label="true"
+        step="0.1">
+    </mat-slider>
+</mat-card-content>
+</mat-card><mat-card class="result">
+    <mat-card-title>Base angle</mat-card-title>
+    <mat-card-content>    
+    <mat-slider
+        [max]="180"
+        [min]="-180"
+        [(ngModel)]="baseAngle"
+        thumb-label="true"
+        step="0.1">
+    </mat-slider>
+</mat-card-content>
+</mat-card><mat-card class="result">
+    <mat-card-title>Efector angle</mat-card-title>
+    <mat-card-content>    
+    <mat-slider
+        [max]="180"
+        [min]="-180"
+        [(ngModel)]="efectorAngle"
+        thumb-label="true"
+        step="0.1">
+    </mat-slider>
+</mat-card-content>
+</mat-card>
     <!-- <button type="submit" (submit)="onSubmit()">Subir</button> -->
   </div>
  
