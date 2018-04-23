@@ -4,12 +4,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { SvgComponent } from './svg/svg.component';
+import { MultiplierPipe } from './multiplier.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SvgComponent
+    SvgComponent,
+    MultiplierPipe
   ],
   imports: [
     BrowserModule,

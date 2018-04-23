@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-declare var require: any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,44 +7,63 @@ declare var require: any;
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  poleVectorX: any;
-  poleVectorY:any;
-  theta1:number = 0;
-  theta2:number = 0;
-  positionX:number = 160;
-  positionY:number = 160;
+  baseAngle:number = 0;
+  efectorAngle:number = 0;
   a1 = 8;
   a2 = 9;
-  centro = 100;
-  segmentlength = 45;
+  centroX = 20;
+  centroY = 5;
+  client: WebSocket
+  messages: string[] = []
   ngOnInit() {
-    this.drawArm(this.positionX, this.positionY, -1);
-    var mqtt = require('mqtt')
-    var client  = mqtt.connect('mqtt://test.mosquitto.org')
-    this.mqtt(client);
+    this.client  = new WebSocket('wss://legoev3.mybluemix.net/ws/robot')
+    this.ws(this.client);
 
   }
-  mqtt(client) {
+  ws(client) {
     // Set event handlers.
-    client.on('connect', function () {
-      client.subscribe('presence')
-      client.publish('presence', 'Hello mqtt')
-    })
-     
-    client.on('message', function (topic, message) {
-      // message is Buffer
-      console.log(message.toString())
-      client.end()
-       
-    })
-  }
-  thetaChange() {
+          // Set event handlers.
+          client.onopen = function() {
+            console.log("Se abrió la conexión")
+          };
+          
+          client.onmessage = function(e) {
+            // e.data contains received string.
+            console.log("Vino un mensaje")
+            console.log(e)
+          };
+          
+          client.onclose = function() {
+            console.log("Se cerró la conexión")
+          };
     
-    this.positionX = this.segmentlength*Math.cos(this.toRadians(this.theta1)) + this.segmentlength*Math.cos(this.toRadians(this.theta1 + this.theta2)) + this.centro;
-    this.positionY = this.segmentlength*Math.sin(this.toRadians(this.theta1)) + this.segmentlength*Math.sin(this.toRadians(this.theta1 + this.theta2)) + this.centro;
-    console.log(this.positionX)
+          client.onerror = function(e) {
+            
+            console.log(e)
+          };
+  }
+  directKinematics() {
 
-    this.drawArm(this.positionX, this.positionY, -1);
+    
+    // var message = "{baseAngle: " + this.baseAngle + ", efectorAngle:" + this.efectorAngle + " }"
+    // this.client.send(message)
+    // this.messages.push(message)
+  }
+  get x() {
+    return this.a1*Math.cos(this.toRadians(this.baseAngle)) 
+    + this.a2*Math.cos(this.toRadians(this.baseAngle + this.efectorAngle)) + this.centroX;
+  }
+  get poleX() {
+    var angle = this.toRadians(this.baseAngle)
+    return this.a1*Math.cos(angle) + this.centroX
+  }
+  get poleY() {
+    var angle = this.toRadians(this.baseAngle)
+    return this.a1*Math.sin(angle) + this.centroY
+  }
+  get y() {
+   return this.a1*Math.sin(this.toRadians(this.baseAngle)) 
+   + this.a2*Math.sin(this.toRadians(this.baseAngle + this.efectorAngle)) + this.centroY;
   }
   toRadians (angle) {
     return angle * (Math.PI / 180);
@@ -52,51 +71,14 @@ export class AppComponent implements OnInit {
   toDegrees (angle) {
     return angle * (180 / Math.PI);
   }
-  // onSubmit() {
-  //   let send = '{"theta1": "' + this.theta1  + '", "theta2" : "' + this.theta2 + '"}'
-  //   this.ws.send(send);
-  //   console.log(send)
+  // inverseKinematics() {
+  //   let positionX = this.positionX- this.centro;
+  //   let positionY = this.positionY- this.centro;
+  //   let theta2 = Math.pow(positionX,2) + Math.pow(positionY,2) - Math.pow(this.segmentlength,2) - Math.pow(this.a2,2)
+  //   theta2 = theta2/(2*this.segmentlength*this.segmentlength)
+  //   theta2 = Math.acos(theta2)
+  //   let theta1 = Math.atan(positionY/positionX) - Math.atan((this.segmentlength*Math.sin(theta2))/(this.segmentlength + this.segmentlength*Math.cos(theta2)))
+  //   this.baseAngle = this.toDegrees(theta1)
+  //   this.efectorAngle = this.toDegrees(theta2)
   // }
-  positionChange() {
-    let positionX = this.positionX- this.centro;
-    let positionY = this.positionY- this.centro;
-    let theta2 = Math.pow(positionX,2) + Math.pow(positionY,2) - Math.pow(this.segmentlength,2) - Math.pow(this.a2,2)
-    theta2 = theta2/(2*this.segmentlength*this.segmentlength)
-    theta2 = Math.acos(theta2)
-    let theta1 = Math.atan(positionY/positionX) - Math.atan((this.segmentlength*Math.sin(theta2))/(this.segmentlength + this.segmentlength*Math.cos(theta2)))
-    this.theta1 = this.toDegrees(theta1)
-    this.theta2 = this.toDegrees(theta2)
-    this.drawArm(positionX, positionY, -1);
-  }
-  max() {
-    return Math.sqrt(83^2 - this.positionX*this.positionX)
-  }
-  drawArm(endEffectorX, endEffectorY, preferredRotation){
-    var dirx = endEffectorX - this.centro;
-    var diry = endEffectorY - this.centro;
-    var len = Math.sqrt(dirx * dirx + diry * diry);
-    dirx = dirx / len;
-    diry = diry / len;
-    
-    var poleVectorX, poleVectorY;
-    var disc = this.segmentlength * this.segmentlength - len * len / 4;
-    if(disc < 0){
-        poleVectorX = this.centro + dirx * this.segmentlength;
-        poleVectorY = this.centro + diry * this.segmentlength;
-        endEffectorX = this.centro + dirx * this.segmentlength * 2;
-        endEffectorY = this.centro + diry * this.segmentlength * 2;
-    } else {
-        poleVectorX = this.centro + dirx * len / 2;
-        poleVectorY = this.centro + diry * len / 2;
-        disc = Math.sqrt(disc);
-        if(preferredRotation < 0){
-            disc =- disc; // Make it a negative number
-        }
-        poleVectorX -= diry * disc;
-        poleVectorY += dirx * disc;
-    }
-    this.poleVectorX = poleVectorX;
-    this.poleVectorY = poleVectorY;
-
-};
 }

@@ -1,17 +1,22 @@
 <div class="container">
-  <svg viewBox="0 0 650 650">
-    <svg:g app-svg [segmentlength]="segmentlength" [centro]="centro" [efectorX]="positionX" [efectorY]="positionY" />
+  <svg viewBox="0 0 40 10" width="100%" height="100%">
+    <svg:g app-svg [centroX]="centroX" [centroY]="centroY" [efectorX]="x" [efectorY]="y" [poleX]="poleX" [poleY]= "poleY"/>
   </svg>
   
   <div>
-    <input [(ngModel)]="theta1" (change)="thetaChange()" type="range" [min]="0" [max]="360"> {{theta1}}
+    <input [(ngModel)]="baseAngle" (change)="directKinematics()" type="range" [min]="-180" [max]="180"> {{baseAngle}}
     <br>
-    <input [(ngModel)]="theta2" (change)="thetaChange()" type="range" [min]="0" [max]="360"> {{theta2}}
+    <input [(ngModel)]="efectorAngle" (change)="directKinematics()" type="range" [min]="-180" [max]="180"> {{efectorAngle}}
     <br>
-    <input [(ngModel)]="positionX" (change)="positionChange()" type="range" [min]="-360" [max]="360"> {{positionX - centro}}
+    {{x - centroX}} {{y - centroY}}
     <br>
-    <input [(ngModel)]="positionY" (change)="positionChange()" type="range" [min]="1" [max]="360"> {{positionY - centro}}
+    {{poleX - centroX}} {{poleY - centroY}}
+    <!-- <input [(ngModel)]="positionX" (change)="inverseKinematics()" type="range" [min]="-25" [max]="25"> {{positionX - centro}}
     <br>
-    <button type="submit" (submit)="onSubmit()">Subir</button>
+    <input [(ngModel)]="positionY" (change)="inverseKinematics()" type="range" [min]="-25" [max]="25"> {{positionY - centro}}
+    <br> -->
+    <!-- <button type="submit" (submit)="onSubmit()">Subir</button> -->
   </div>
+ 
+  
 </div>
