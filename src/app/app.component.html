@@ -18,13 +18,26 @@
               <button mat-button (click)="yequalx(time.value)">Recta Y/X = 1</button>
               <button mat-button (click)="angleTrajectory(time.value)">angleTrajectory</button>
               <button mat-button (click)="reset()">Reset</button>
+              <mat-form-field class="example-full-width">
+                <input matInput type="number"  [(ngModel)] = "q1f" placeholder="base tarjet">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input matInput type="number" [(ngModel)] = "q2f" placeholder="efector tarjet">
+            </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input matInput type="number" [(ngModel)] = "x2f" placeholder="posición final x">
+        </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput type="number" [(ngModel)] = "y2f" placeholder="posición final y">
+    </mat-form-field>
+              <!-- <button mat-button (click) = "valoresTetha(time.value)"></button> -->
   </mat-card-content>
 </mat-card>
       <mat-card class="result">
           <mat-card-title>x position</mat-card-title>
           <mat-card-content>    
           <mat-slider
-              [max]="17"
+              [max]="19.2"
               [min]="0"
               [(ngModel)]="x"
               thumb-label="true"
@@ -36,15 +49,15 @@
     <mat-card-title>y position</mat-card-title>
     <mat-card-content>    
     <mat-slider
-        [max]="17"
-        [min]="-17"
+        [max]="19.2"
+        [min]="-19.2"
         [(ngModel)]="y"
         thumb-label="true"
         step="0.1">
     </mat-slider>
 </mat-card-content>
 </mat-card><mat-card class="result">
-    <mat-card-title>Base angle</mat-card-title>
+    <mat-card-title>Base angle {{_baseAngle}}</mat-card-title>
     <mat-card-content>    
     <mat-slider
         [max]="180"
@@ -55,7 +68,7 @@
     </mat-slider>
 </mat-card-content>
 </mat-card><mat-card class="result">
-    <mat-card-title>Efector angle</mat-card-title>
+    <mat-card-title>Efector angle {{_efectorAngle}}</mat-card-title>
     <mat-card-content>    
     <mat-slider
         [max]="180"
