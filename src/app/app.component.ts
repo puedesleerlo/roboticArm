@@ -151,16 +151,6 @@ export class AppComponent implements OnInit {
     this.y = this.y2f
     this.sendMessage(this.baseAngle, this.efectorAngle)
   }
-  yequalx(time) {
-    // var yx = setInterval(() => {
-
-    //   this.x = this.x - 1
-    //   this.y = this.x
-    //   var message = this.returnMessage()
-    //   this.client.send(message)
-    //   if(this.y < 5) clearInterval(yx)   
-    // }, time)
-  }
   angleTrajectory(time) {
     var velocidad = 0
     var coeficientes = this.coeficientesAngulo(this._baseAngle, this.q2f, 0, 0, time)
