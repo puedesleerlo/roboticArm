@@ -20,15 +20,15 @@ export class SvgComponent implements OnInit {
     this.chain = new Chain2D();
     var boneLength = 40;
 
-    var basebone = new Bone( new V2(0, -boneLength), new V2(0, 0) );
-    basebone.setClockwiseConstraintDegs(-90);
-    basebone.setAnticlockwiseConstraintDegs(90);     
+    var basebone = new Bone( new V2(0, 0), new V2(0, boneLength) );
+    // basebone.setClockwiseConstraintDegs(-90);
+    // basebone.setAnticlockwiseConstraintDegs(90);     
     this.chain.addBone( basebone );
 
     // Fix the base bone to its current location, and constrain it to the positive Y-axis
     this.chain.setFixedBaseMode( true );       
-    this.chain.setBaseboneConstraintType( GLOBAL_ABSOLUTE );
-    this.chain.setBaseboneConstraintUV( new V2(0, 1) );
+    // this.chain.setBaseboneConstraintType( GLOBAL_ABSOLUTE );
+    // this.chain.setBaseboneConstraintUV( new V2(0, 1) );
 
     // Create and add the second bone - 50 clockwise, 90 anti-clockwise
     this.chain.addConsecutiveBone(new Bone(new V2(0, 1), undefined, new V2(0, 1), boneLength, -180, 180));

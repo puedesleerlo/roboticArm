@@ -1,70 +1,106 @@
 <mat-toolbar>Robot revolute-revolute</mat-toolbar>
 <div class="container">
-  <svg viewBox="-50 -100 250 250" width="100%" height="100%">
+  <svg viewBox="-75 -80 250 50" width="100%" height="100%">
     <svg:g app-svg [x]="x" [y] = "y"/>
+    <svg:g app-traditional [a1]="a1" [a2]="a2" [a3] ="a3"/>
   </svg>
   
   <div>
+      <form [formGroup]="positionForm">
       <mat-card class="result">
-          <mat-card-title>x position</mat-card-title>
+          <mat-card-title>x position </mat-card-title>
+          <mat-card-subtitle>{{x | number:'1.0-2'}}</mat-card-subtitle>
           <mat-card-content>    
           <mat-slider
-              [max]="100"
-              [min]="-100"
-              [(ngModel)]="x"
+              [max]="140"
+              [min]="-140"
+              formControlName="x"
               thumb-label="true"
               step="1">
           </mat-slider>
   </mat-card-content>
 </mat-card>
 <mat-card class="result">
-    <mat-card-title>y position</mat-card-title>
+    <mat-card-title>y position </mat-card-title>
+    <mat-card-subtitle>{{y | number:'1.0-2'}}</mat-card-subtitle>
     <mat-card-content>    
     <mat-slider
-        [max]="80"
-        [min]="-40"
-        [(ngModel)]="y"
+        [max]="140"
+        [min]="-140"
+        formControlName="y"
         thumb-label="true"
         step="1">
     </mat-slider>
 </mat-card-content>
 </mat-card>
 <mat-card class="result">
-    <mat-card-title>Base angle {{a1}}</mat-card-title>
-    <mat-card-content>    
-    <mat-slider
-        [max]="180"
-        [min]="-180"
-        [(ngModel)]="a1"
-        thumb-label="true"
-        step="0.1">
-    </mat-slider>
-</mat-card-content>
-</mat-card><mat-card class="result">
-    <mat-card-title>Efector angle {{a2}}</mat-card-title>
-    <mat-card-content>    
-    <mat-slider
-        [max]="180"
-        [min]="-180"
-        [(ngModel)]="a2"
-        thumb-label="true"
-        step="0.1">
-    </mat-slider>
-</mat-card-content>
-</mat-card> 
-<mat-card class="result">
-        <mat-card-title>Efector angle {{a3}}</mat-card-title>
+        <mat-card-title>angle </mat-card-title>
+        <mat-card-subtitle>{{angle | number:'1.0-2'}}</mat-card-subtitle>
         <mat-card-content>    
         <mat-slider
             [max]="180"
             [min]="-180"
-            [(ngModel)]="a3"
+            formControlName="angle"
             thumb-label="true"
-            step="0.1">
+            step="1">
+        </mat-slider>
+    </mat-card-content>
+</mat-card>
+</form>
+
+<form [formGroup]="angleForm">
+<mat-card class="result">
+    <mat-card-title>Base angle </mat-card-title>
+    <mat-card-subtitle>{{a1 | number:'1.0-2'}}</mat-card-subtitle>
+    <mat-card-content>    
+    <mat-slider 
+        [max]="180"
+        [min]="-180"
+        formControlName="a1"
+        thumb-label="true"
+        step="1">
+    </mat-slider>
+</mat-card-content>
+</mat-card><mat-card class="result">
+    <mat-card-title>Link two angle </mat-card-title>
+    <mat-card-subtitle>{{a2 | number:'1.0-2'}}</mat-card-subtitle>
+    <mat-card-content>    
+    <mat-slider
+        [max]="180"
+        [min]="-180"
+        formControlName="a2"
+        thumb-label="true"
+        step="1">
+    </mat-slider>
+</mat-card-content>
+</mat-card> 
+<mat-card class="result">
+        <mat-card-title>Efector angle </mat-card-title>
+        <mat-card-subtitle>{{a3 | number:'1.0-2'}}</mat-card-subtitle>
+        <mat-card-content>    
+        <mat-slider
+            [max]="180"
+            [min]="-180"
+            formControlName="a3"
+            thumb-label="true"
+            step="1">
         </mat-slider>
     </mat-card-content>
     </mat-card> 
-    <button type="submit" (submit)="onSubmit()">Subir</button>
+    <mat-card class="result">
+        <mat-card-title>Gyro </mat-card-title>
+        <mat-card-subtitle>{{gyro | number:'1.0-2'}}</mat-card-subtitle>   
+        <mat-card-content>    
+        <mat-slider
+            [max]="180"
+            [min]="-180"
+            formControlName="gyro"
+            thumb-label="true"
+            step="1">
+        </mat-slider>
+    </mat-card-content>
+    </mat-card> 
+    </form>
   </div>
  
   

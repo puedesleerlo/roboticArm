@@ -12,17 +12,20 @@ import { MultiplierPipe } from './multiplier.pipe';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { TraditionalComponent } from './traditional/traditional.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SvgComponent,
-    MultiplierPipe
+    MultiplierPipe,
+    TraditionalComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     MatSliderModule,
     MatCardModule,
     MatToolbarModule,

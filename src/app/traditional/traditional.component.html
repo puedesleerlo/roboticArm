@@ -1,0 +1,20 @@
+<svg style="overflow: visible">  
+    <!-- <g *ngFor="let line of linkposition; let i=index">
+            <line [attr.x1]="line.x" [attr.y1]="line.y" [attr.x2]="line.getEndLocation().x" [attr.y2]="line.getEndLocation().y" style="stroke:rgb(255,0,0);stroke-width:0.5%" />
+            <circle [attr.cx]="line.getEndLocation().x" [attr.cy]="line.getEndLocation().y" r="2%"   fill="black" />
+    </g>  -->
+    <circle [attr.cx]="linkposition[0].x" [attr.cy]="linkposition[0].y" r="2%"   fill="black" />   
+    <circle [attr.cx]="linkposition[1].x" [attr.cy]="linkposition[1].y" r="2%"   fill="black" />
+    <circle [attr.cx]="linkposition[2].x" [attr.cy]="linkposition[2].y" r="2%"   fill="black" />
+    <circle [attr.cx]="linkposition[3].x" [attr.cy]="linkposition[3].y" r="2%"   fill="black" />
+    <line [attr.x1]="linkposition[0].x" [attr.y1]="linkposition[0].y" 
+    [attr.x2]="linkposition[1].x" [attr.y2]="linkposition[1].y" 
+    style="stroke:rgb(0, 0, 255);stroke-width:0.5%" />
+    
+    <line [attr.x1]="linkposition[1].x" [attr.y1]="linkposition[1].y" 
+    [attr.x2]="linkposition[2].x" [attr.y2]="linkposition[2].y" 
+    style="stroke:rgb(0, 0, 255);stroke-width:0.5%" />
+    <line [attr.x1]="linkposition[2].x" [attr.y1]="linkposition[2].y" 
+    [attr.x2]="linkposition[3].x" [attr.y2]="linkposition[3].y" 
+    style="stroke:rgb(0, 0, 255);stroke-width:0.5%" />
+</svg>

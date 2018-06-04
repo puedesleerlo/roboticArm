@@ -324,7 +324,6 @@ import { Bone } from './bone.class';
 
         this.tmpTarget.set( t.x, t.y );
         var p = this.precision;
-        console.log("holaa" + t.y)
         var isSameBaseLocation = this.lastBaseLocation.approximatelyEquals( this.baseLocation, p );
 
         // If we have both the same target and base location as the last run then do not solve
@@ -400,7 +399,6 @@ import { Bone } from './bone.class';
         // Update our last base and target locations so we know whether we need to solve for this start/end configuration next time
         this.lastBaseLocation.copy( this.baseLocation );
         this.lastTargetLocation.copy( this.tmpTarget );
-        console.log(this.bones)
         return this.currentSolveDistance;
 
     }
