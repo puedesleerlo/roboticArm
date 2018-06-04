@@ -8,6 +8,7 @@
   <div>
       <form [formGroup]="positionForm">
       <mat-card class="result">
+            <mat-slide-toggle formControlName="sigma">{{status}}</mat-slide-toggle>
           <mat-card-title>x position </mat-card-title>
           <mat-card-subtitle>{{x | number:'1.0-2'}}</mat-card-subtitle>
           <mat-card-content>    

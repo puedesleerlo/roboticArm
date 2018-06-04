@@ -30,7 +30,8 @@ export class AppComponent implements OnInit {
     this.positionForm = new FormGroup ({
       x: new FormControl(this.x),
       y: new FormControl(this.y),
-      angle: new FormControl(this.angle)
+      angle: new FormControl(this.angle),
+      sigma: new FormControl()
     });
   }
   ngOnInit() {
@@ -44,7 +45,7 @@ export class AppComponent implements OnInit {
       this.gyro = data.gyro
     });
     this.positionForm.valueChanges.subscribe(data => {
-      var ob = this.inverseKinematics(data.x, data.y, data.angle*TORAD, 1);
+      var ob = this.inverseKinematics(data.x, data.y, data.angle*TORAD, data.sigma);
       console.log(data)
       console.log(this.directKinematics(ob.a1, ob.a2, ob.a3))
       this.x = data.x
