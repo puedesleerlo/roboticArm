@@ -2,9 +2,8 @@
  * A list of constants built-in for
  * the Fik engine.
  */
-import { V3 } from './math/V3.js';
-import { V2 } from './math/V2.js';
-import { M3 } from './math/M3.js';
+import { V2 } from './V2';
+
 
 export var REVISION = '1.3.3';
 
@@ -38,15 +37,15 @@ export var J_GLOBAL = 12;
 export var START = 20;
 export var END = 21;
 
-// Define world-space axis
+// // Define world-space axis
 
-export var X_AXE = new V3( 1, 0, 0 );
-export var Y_AXE = new V3( 0, 1, 0 );
-export var Z_AXE = new V3( 0, 0, 1 );
+// export var X_AXE = new V3( 1, 0, 0 );
+// export var Y_AXE = new V3( 0, 1, 0 );
+// export var Z_AXE = new V3( 0, 0, 1 );
 
-export var X_NEG = new V3( -1, 0, 0 );
-export var Y_NEG = new V3( 0, -1, 0 );
-export var Z_NEG = new V3( 0, 0, -1 );
+// export var X_NEG = new V3( -1, 0, 0 );
+// export var Y_NEG = new V3( 0, -1, 0 );
+// export var Z_NEG = new V3( 0, 0, -1 );
 
 // Define world-space 2D cardinal axes
 

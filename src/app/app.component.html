@@ -1,47 +1,19 @@
 <mat-toolbar>Robot revolute-revolute</mat-toolbar>
 <div class="container">
-  <svg viewBox="-20 -10 40 10" width="100%" height="100%">
-    <svg:g app-svg [a1]="a1" [a1]="a2" [a1]="a4" [a1]="a4" [r1]="r1" [r2]="r2" [r3]="r3"/>
+  <svg viewBox="-50 -100 250 250" width="100%" height="100%">
+    <svg:g app-svg [x]="x" [y] = "y"/>
   </svg>
   
   <div>
       <mat-card class="result">
-          <mat-card-title>Settings</mat-card-title>
-          <mat-card-content>    
-              <mat-slide-toggle [(ngModel)]="togle">{{status}}</mat-slide-toggle>
-              <br>
-              <mat-form-field class="example-full-width">
-                  <input matInput type="number" #time placeholder="TIME">
-              </mat-form-field>
-              <button mat-button (click)="xRect(time.value)">Recta X</button>
-              <button mat-button (click)="yRect(time.value)">Recta Y</button>
-              <button mat-button (click)="yequalx(time.value)">Recta Y/X = 1</button>
-              <button mat-button (click)="angleTrajectory(time.value)">angleTrajectory</button>
-              <button mat-button (click)="reset()">Reset</button>
-              <mat-form-field class="example-full-width">
-                <input matInput type="number"  [(ngModel)] = "q1f" placeholder="base tarjet">
-            </mat-form-field>
-            <mat-form-field class="example-full-width">
-                <input matInput type="number" [(ngModel)] = "q2f" placeholder="efector tarjet">
-            </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <input matInput type="number" [(ngModel)] = "x2f" placeholder="posición final x">
-        </mat-form-field>
-    <mat-form-field class="example-full-width">
-        <input matInput type="number" [(ngModel)] = "y2f" placeholder="posición final y">
-    </mat-form-field>
-              <!-- <button mat-button (click) = "valoresTetha(time.value)"></button> -->
-  </mat-card-content>
-</mat-card>
-      <mat-card class="result">
           <mat-card-title>x position</mat-card-title>
           <mat-card-content>    
           <mat-slider
-              [max]="19.2"
-              [min]="0"
+              [max]="100"
+              [min]="-100"
               [(ngModel)]="x"
               thumb-label="true"
-              step="0.1">
+              step="1">
           </mat-slider>
   </mat-card-content>
 </mat-card>
@@ -49,37 +21,50 @@
     <mat-card-title>y position</mat-card-title>
     <mat-card-content>    
     <mat-slider
-        [max]="19.2"
-        [min]="-19.2"
+        [max]="80"
+        [min]="-40"
         [(ngModel)]="y"
         thumb-label="true"
-        step="0.1">
-    </mat-slider>
-</mat-card-content>
-</mat-card><mat-card class="result">
-    <mat-card-title>Base angle {{_baseAngle}}</mat-card-title>
-    <mat-card-content>    
-    <mat-slider
-        [max]="180"
-        [min]="-180"
-        [(ngModel)]="baseAngle"
-        thumb-label="true"
-        step="0.1">
-    </mat-slider>
-</mat-card-content>
-</mat-card><mat-card class="result">
-    <mat-card-title>Efector angle {{_efectorAngle}}</mat-card-title>
-    <mat-card-content>    
-    <mat-slider
-        [max]="180"
-        [min]="-180"
-        [(ngModel)]="efectorAngle"
-        thumb-label="true"
-        step="0.1">
+        step="1">
     </mat-slider>
 </mat-card-content>
 </mat-card>
-    <!-- <button type="submit" (submit)="onSubmit()">Subir</button> -->
+<mat-card class="result">
+    <mat-card-title>Base angle {{a1}}</mat-card-title>
+    <mat-card-content>    
+    <mat-slider
+        [max]="180"
+        [min]="-180"
+        [(ngModel)]="a1"
+        thumb-label="true"
+        step="0.1">
+    </mat-slider>
+</mat-card-content>
+</mat-card><mat-card class="result">
+    <mat-card-title>Efector angle {{a2}}</mat-card-title>
+    <mat-card-content>    
+    <mat-slider
+        [max]="180"
+        [min]="-180"
+        [(ngModel)]="a2"
+        thumb-label="true"
+        step="0.1">
+    </mat-slider>
+</mat-card-content>
+</mat-card> 
+<mat-card class="result">
+        <mat-card-title>Efector angle {{a3}}</mat-card-title>
+        <mat-card-content>    
+        <mat-slider
+            [max]="180"
+            [min]="-180"
+            [(ngModel)]="a3"
+            thumb-label="true"
+            step="0.1">
+        </mat-slider>
+    </mat-card-content>
+    </mat-card> 
+    <button type="submit" (submit)="onSubmit()">Subir</button>
   </div>
  
   

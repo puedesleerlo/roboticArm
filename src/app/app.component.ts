@@ -9,21 +9,19 @@ export class AppComponent implements OnInit {
   title = 'app';
   a1 = 6.5;
   a2 = 12.7;
-
+  a3 = 4;
+  x = 10;
+  y = 10;
   ngOnInit() {
     
   }
+  changes(a1, a2, a3) {
+
+  }
 
   directKinematics(a1, a2, a3) {
-    return {x: 2, y:3}
+    
   }
-
-  get x() {
-    return 3
-  }
-  get y() {
-    return 4
-   }
 
   toRadians (angle) {
     return angle * (Math.PI / 180);

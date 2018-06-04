@@ -122,10 +122,10 @@ import { Bone } from './bone.class';
 
     }
 
-    addConsecutiveBone( directionUV, length, clockwiseDegs, anticlockwiseDegs, color ){
+    addConsecutiveBone( boneObject: Bone){
 
         if ( this.numBones === 0 ){ console.log('Chain is empty ! need first bone'); return };
-            var bone = directionUV;
+            var bone = boneObject;
 
             // Validate the direction unit vector - throws an IllegalArgumentException if it has a magnitude of zero
             var dir = bone.getDirectionUV();
@@ -324,7 +324,7 @@ import { Bone } from './bone.class';
 
         this.tmpTarget.set( t.x, t.y );
         var p = this.precision;
-
+        console.log("holaa" + t.y)
         var isSameBaseLocation = this.lastBaseLocation.approximatelyEquals( this.baseLocation, p );
 
         // If we have both the same target and base location as the last run then do not solve
@@ -358,10 +358,10 @@ import { Bone } from './bone.class';
         var i = this.maxIteration;
 
         while( i-- ){
-
+            
             // Solve the chain for this target
             solveDistance = this.solveIK( this.tmpTarget );
-            
+           
             // Did we solve it for distance? If so, update our best distance and best solution, and also
             // update our last pass solve distance. Note: We will ALWAYS beat our last solve distance on the first run
 
@@ -400,7 +400,7 @@ import { Bone } from './bone.class';
         // Update our last base and target locations so we know whether we need to solve for this start/end configuration next time
         this.lastBaseLocation.copy( this.baseLocation );
         this.lastTargetLocation.copy( this.tmpTarget );
-        
+        console.log(this.bones)
         return this.currentSolveDistance;
 
     }
@@ -504,7 +504,7 @@ import { Bone } from './bone.class';
 
             bone = this.bones[i];
             boneLength  = bone.length;
-
+            
             // If we are not working on the basebone
             if ( i !== 0 ){
 
@@ -554,7 +554,7 @@ import { Bone } from './bone.class';
     
                     // Set the new end joint location
                     bone.setEndLocation( endPosition );
-    
+                    
                     // Also, set the start location of the next bone to be the end location of this bone
                     if ( this.numBones > 1 ) this.bones[1].setStartLocation( endPosition );
 

@@ -1,3 +1,5 @@
+import { END, START } from './constants';
+
 import {V2} from "./V2"
 import { Joint2D } from "./joint.class";
 export class Bone {
@@ -7,7 +9,7 @@ export class Bone {
     end: V2;
     joint: Joint2D;
     globalConstraintUV: V2;
-    boneConnectionPoint: V2
+    boneConnectionPoint: number
 
     constructor(Start, End?, directionUV?, length = 0, clockwiseDegs?, anticlockwiseDegs?, stlpath?) {
         this.start = new V2();
@@ -16,7 +18,7 @@ export class Bone {
 
         this.joint = new Joint2D( clockwiseDegs, anticlockwiseDegs );
         this.globalConstraintUV = new V2(1, 0);
-        this.boneConnectionPoint = this.end;
+        this.boneConnectionPoint = END;
 
         this.setStartLocation( Start );
 
@@ -107,6 +109,14 @@ export class Bone {
         return this.start.distanceTo( this.end );
 
     }
+
+    getStartLocation(){
+        return this.start;
+    }
+    getEndLocation(){
+        return this.end;
+    }
+
 
 
 }
