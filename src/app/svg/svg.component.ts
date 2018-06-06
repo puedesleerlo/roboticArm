@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange  } from '@angular/core';
 import { Bone, Chain2D, V2 } from '../../core';
+import { TORAD } from '../../core/constants';
 const GLOBAL_ABSOLUTE = 6;
 @Component({
   selector: '[app-svg]',
@@ -7,12 +8,11 @@ const GLOBAL_ABSOLUTE = 6;
   styleUrls: ['./svg.component.css']
 })
 export class SvgComponent implements OnInit {
-  @Input() x: number;
-  @Input() y: number;
+  @Input() r: number;
+  @Input() z: number;
+  @Input() phi: number;
   chain: Chain2D
   // @Input() segmentlength: number;
-  @Input() centroX: number;
-  @Input() centroY: number;
   // poleX:number;
   // poleY:number;
   disc=0;
@@ -44,8 +44,9 @@ export class SvgComponent implements OnInit {
 
   }
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    
-    this.chain.solveForTarget(new V2(this.x, this.y))
+    var x = this.r*Math.cos(this.phi*TORAD)
+    var y = this.r*Math.sin(this.phi*TORAD)
+    this.chain.solveForTarget(new V2(x, y))
     var numBones = this.chain.numBones
     var b, pos, pos2
     for ( var j = 0; j < numBones; j++ ) {

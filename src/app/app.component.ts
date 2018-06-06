@@ -12,43 +12,39 @@ export class AppComponent implements OnInit {
   positionForm:FormGroup
   r1 = 40;
   r2 = 40;
-  r3 = 40;
-  x = 127;
-  y = 0;
-  angle = 0;
+  r = 127;
+  phi = 0;
+  z = 0;
   a1 = 0;
   a2 = 0;
-  a3 = 0;
   gyro = 0;
   constructor() {
     this.angleForm = new FormGroup ({
       a1: new FormControl(this.a1),
       a2: new FormControl(this.a2),
-      a3: new FormControl(this.a3),
       gyro: new FormControl(this.gyro)
     });
     this.positionForm = new FormGroup ({
-      x: new FormControl(this.x),
-      y: new FormControl(this.y),
-      angle: new FormControl(this.angle),
-      sigma: new FormControl()
+      r: new FormControl(this.r),
+      z: new FormControl(this.phi),
+      phi: new FormControl()
     });
   }
   ngOnInit() {
     this.angleForm.valueChanges.subscribe(data => {
-      var ob = this.directKinematics(data.a1*TORAD, data.a2*TORAD, data.a3*TORAD);
+      var ob = this.directKinematics(data.a1*TORAD, data.a2*TORAD, data.gyro*TORAD);
       // this.x = ob.x
       // this.y = ob.y
       this.a1 = data.a1*TORAD
       this.a2 = data.a2*TORAD
-      this.a3 = data.a3*TORAD
+      this.gyro = data.gyro*TORAD
     });
     this.positionForm.valueChanges.subscribe(data => {
       var ob = this.inverseKinematics(data.x, data.y, data.angle*TORAD, data.sigma);
       // console.log(data)
       // console.log(this.directKinematics(ob.a1, ob.a2, ob.a3))
-      this.x = data.x
-      this.y = data.y
+      this.r = data.x
+      this.phi = data.y
       // this.angle = data.angle*TORAD
       // this.a1 = ob.a1
       // this.a2 = ob.a2
@@ -57,21 +53,15 @@ export class AppComponent implements OnInit {
 
   }
 
-  directKinematics(a1, a2, a3) {
-    var x = this.r1*this.c(a1) + this.r2*this.c(a1 + a2) + this.r3*this.c(a1 + a2 + a3)
-    var y = this.r1*this.s(a1) + this.r2*this.s(a1 + a2) + this.r3*this.s(a1 + a2 + a3)
-    return {x, y}
+  directKinematics(a1, a2, gyro) { //polar coordinates
+    var r = this.r1*this.c(a1) + this.r2*this.c(a1 + a2)
+    var z = this.r1*this.s(a1) + this.r2*this.s(a1 + a2)
+    var phi = gyro
+    return {r, z}
   }
-  inverseKinematics(x, y, angle, sigma = 1) {
-    var xalt = x - this.r3*this.c(angle)
-    var yalt = y - this.r3*this.s(angle)
-    var d = Math.sqrt(xalt^2 + yalt^2)
-    var gm = Math.atan2(-yalt/d, xalt/d)
-    var sum = -1*(xalt^2 + yalt^2 + this.r1^2 - this.r2^2 )
-    var a1 = gm + sigma*Math.acos(sum/(2*this.r1*d))
-    var a2 = Math.atan2((yalt - this.r1*this.s(a1))/this.r2, (xalt - this.r1*this.c(a1))/this.r2) - a1;
-    var a3 = angle - a2 - a1;
-    return {a1, a2, a3}
+  inverseKinematics(x, y, sigma = 1) {
+    
+    return {a1, a2, gyro}
   }
 
   c(angle) {
