@@ -140,5 +140,8 @@ export class AppComponent implements OnInit {
     this.targets.push(target)
     console.log(this.targets)
   }
+  interpolation(targets, points) {
+    
+  }
 
 }
