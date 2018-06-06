@@ -3,18 +3,20 @@
             <line [attr.x1]="line.x" [attr.y1]="line.y" [attr.x2]="line.getEndLocation().x" [attr.y2]="line.getEndLocation().y" style="stroke:rgb(255,0,0);stroke-width:0.5%" />
             <circle [attr.cx]="line.getEndLocation().x" [attr.cy]="line.getEndLocation().y" r="2%"   fill="black" />
     </g>  -->
-    <circle [attr.cx]="linkposition[0].x" [attr.cy]="linkposition[0].y" r="2%"   fill="black" />   
-    <circle [attr.cx]="linkposition[1].x" [attr.cy]="linkposition[1].y" r="2%"   fill="black" />
-    <circle [attr.cx]="linkposition[2].x" [attr.cy]="linkposition[2].y" r="2%"   fill="black" />
-    <circle [attr.cx]="linkposition[3].x" [attr.cy]="linkposition[3].y" r="2%"   fill="black" />
-    <line [attr.x1]="linkposition[0].x" [attr.y1]="linkposition[0].y" 
-    [attr.x2]="linkposition[1].x" [attr.y2]="linkposition[1].y" 
+    <circle [attr.cx]="linkposition[0].r" [attr.cy]="linkposition[0].z" r="2%"   fill="black" />   
+    <circle [attr.cx]="linkposition[1].r" [attr.cy]="linkposition[1].z" r="2%"   fill="black" />
+    <circle [attr.cx]="linkposition[2].r" [attr.cy]="linkposition[2].z" r="2%"   fill="black" />
+    <line [attr.x1]="linkposition[0].r" [attr.y1]="linkposition[0].z" 
+    [attr.x2]="linkposition[1].r" [attr.y2]="linkposition[1].z" 
     style="stroke:rgb(0, 0, 255);stroke-width:0.5%" />
-    
-    <line [attr.x1]="linkposition[1].x" [attr.y1]="linkposition[1].y" 
-    [attr.x2]="linkposition[2].x" [attr.y2]="linkposition[2].y" 
+    <line [attr.x1]="linkposition[1].r" [attr.y1]="linkposition[1].z" 
+    [attr.x2]="linkposition[2].r" [attr.y2]="linkposition[2].z" 
     style="stroke:rgb(0, 0, 255);stroke-width:0.5%" />
-    <line [attr.x1]="linkposition[2].x" [attr.y1]="linkposition[2].y" 
-    [attr.x2]="linkposition[3].x" [attr.y2]="linkposition[3].y" 
-    style="stroke:rgb(0, 0, 255);stroke-width:0.5%" />
+</svg>
+<svg style="overflow: visible">  
+    <circle [attr.cx]="anglePosition[0].x" [attr.cy]="anglePosition[0].y" r="2%"   fill="black" />   
+    <circle [attr.cx]="anglePosition[1].x" [attr.cy]="anglePosition[1].y" r="2%"   fill="black" />
+    <line [attr.x1]="anglePosition[0].x" [attr.y1]="anglePosition[0].y" 
+    [attr.x2]="anglePosition[1].x" [attr.y2]="anglePosition[1].y" 
+    style="stroke:rgb(255, 0, 0);stroke-width:0.5%" />
 </svg>

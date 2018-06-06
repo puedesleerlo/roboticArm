@@ -1,96 +1,103 @@
 <mat-toolbar>Robot revolute-revolute</mat-toolbar>
 <div class="container">
-  <svg viewBox="-75 -20 250 25" width="100%" height="40%">
-    <!-- <svg:g app-svg [x]="x" [y] = "y"/> -->
-    <svg:g app-traditional [a1]="a1" [a2]="a2" [gyro] ="gyro"/>
-  </svg>
-  
-  <div>
-      <form [formGroup]="positionForm">
-      <mat-card class="result">
-            <!-- <mat-slide-toggle formControlName="sigma">{{sigma}}</mat-slide-toggle> -->
-          <mat-card-title>x position </mat-card-title>
-          <mat-card-subtitle>{{r | number:'1.0-2'}}</mat-card-subtitle>
-          <mat-card-content>    
-          <mat-slider
-              [max]="140"
-              [min]="-140"
-              formControlName="r"
-              thumb-label="true"
-              step="1">
-          </mat-slider>
-  </mat-card-content>
-</mat-card>
-<mat-card class="result">
-    <mat-card-title>z position </mat-card-title>
-    <mat-card-subtitle>{{y | number:'1.0-2'}}</mat-card-subtitle>
-    <mat-card-content>    
-    <mat-slider
-        [max]="140"
-        [min]="-140"
-        formControlName="z"
-        thumb-label="true"
-        step="1">
-    </mat-slider>
-</mat-card-content>
-</mat-card>
-<mat-card class="result">
-    <mat-card-title>phi </mat-card-title>
-    <mat-card-subtitle>{{y | number:'1.0-2'}}</mat-card-subtitle>
-    <mat-card-content>    
-    <mat-slider
-        [max]="140"
-        [min]="-140"
-        formControlName="phi"
-        thumb-label="true"
-        step="1">
-    </mat-slider>
-</mat-card-content>
-</mat-card>
-</form>
+    <div class="targets">
+            <mat-input-container>
+                    <input placeholder="velocity" #velocity matInput type="number" name="velocity">
+            </mat-input-container>
+        <button color="primary" mat-button (click)="addTargect(velocity.value)">Añadir objetivo</button>
+        <mat-list>
+                <mat-divider></mat-divider>
+                <mat-list-item role="listitem" *ngFor="let target of targets">
+                    x: {{target.x | number:'1.0-2'}} | y: {{target.y |number:'1.0-2'}} <br>
+                    Velocity: {{target.velocity}} <br>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+                
+        </mat-list>
+    </div>
+    <div class="graph">
+            <svg viewBox="-125 -25 250 90" width="100%" height="100%">
+                    <!-- <svg:g app-svg [x]="x" [y] = "y"/> -->
+                    <svg:g app-traditional [a1]="a1" [a2]="a2" [gyro]="gyro" [r1]="r1" [r2]="r2" />
+                </svg>
+    </div>
+    <div class="controlGrid">
 
-<form [formGroup]="angleForm">
-<mat-card class="result">
-    <mat-card-title>Base angle </mat-card-title>
-    <mat-card-subtitle>{{a1 | number:'1.0-2'}}</mat-card-subtitle>
-    <mat-card-content>    
-    <mat-slider 
-        [max]="180"
-        [min]="-180"
-        formControlName="a1"
-        thumb-label="true"
-        step="0.01">
-    </mat-slider>
-</mat-card-content>
-</mat-card>
-<mat-card class="result">
-        <mat-card-title>Efector angle </mat-card-title>
-        <mat-card-subtitle>{{a2 | number:'1.0-2'}}</mat-card-subtitle>
-        <mat-card-content>    
-        <mat-slider
-            [max]="180"
-            [min]="-180"
-            formControlName="a2"
-            thumb-label="true"
-            step="0.01">
-        </mat-slider>
-    </mat-card-content>
-    </mat-card> 
-    <mat-card class="result">
-        <mat-card-title>Gyro </mat-card-title>
-        <mat-card-subtitle>{{gyro | number:'1.0-2'}}</mat-card-subtitle>   
-        <mat-card-content>    
-        <mat-slider
-            [max]="180"
-            [min]="-180"
-            formControlName="gyro"
-            thumb-label="true"
-            step="1">
-        </mat-slider>
-    </mat-card-content>
-    </mat-card> 
-    </form>
-  </div>
- 
-  
+        <form [formGroup]="cartesianForm">
+            <div class="cartesianGrid">
+                    <mat-input-container>
+                            <input placeholder="x" formControlName="x" matInput type="number" name="" id="">
+                            <mat-hint align="end">{{x}}</mat-hint>
+                    </mat-input-container>
+                    <mat-input-container>
+                            <input placeholder="y" formControlName="y" matInput type="number" name="" id="">
+                            <mat-hint align="end">{{y}}</mat-hint>
+                    </mat-input-container>
+                    <mat-input-container>
+                            <input placeholder="z" formControlName="z" matInput type="number" name="" id="">
+                            <mat-hint align="end">{{z}}</mat-hint>
+                    </mat-input-container>
+            </div>   
+        </form>
+        <form [formGroup]="positionForm">
+            <div class="positionGrid">
+                <mat-card class="result">
+                    <!-- <mat-slide-toggle formControlName="sigma">{{sigma}}</mat-slide-toggle> -->
+                    <mat-card-title>r</mat-card-title>
+                    <mat-card-subtitle>{{r | number:'1.0-2'}}</mat-card-subtitle>
+                    <mat-card-content>
+                        <mat-slider [max]="140" [min]="-140" formControlName="r" thumb-label="true" step="1" vertical>
+                        </mat-slider>
+                    </mat-card-content>
+                </mat-card>
+                <mat-card class="result">
+                    <mat-card-title>z</mat-card-title>
+                    <mat-card-subtitle>{{z | number:'1.0-2'}}</mat-card-subtitle>
+                    <mat-card-content>
+                        <mat-slider [max]="140" [min]="-140" formControlName="z" thumb-label="true" step="1" vertical>
+                        </mat-slider>
+                    </mat-card-content>
+                </mat-card>
+                <mat-card class="result">
+                    <mat-card-title>Phi</mat-card-title>
+                    <mat-card-subtitle>{{phi | number:'1.0-2'}}</mat-card-subtitle>
+                    <mat-card-content>
+                        <mat-slider vertical [max]="140" [min]="-140" formControlName="phi" thumb-label="true" step="1">
+                        </mat-slider>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </form>
+
+        <form [formGroup]="angleForm">
+            <div class="angleGrid">
+            <mat-card class="result">
+                <mat-card-title>Base </mat-card-title>
+                <mat-card-subtitle>{{a1 | number:'1.0-2'}}</mat-card-subtitle>
+                <mat-card-content>
+                    <mat-slider vertical [max]="180" [min]="-180" formControlName="a1" thumb-label="true" step="1">
+                    </mat-slider>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="result">
+                <mat-card-title>Efector</mat-card-title>
+                <mat-card-subtitle>{{a2 | number:'1.0-2'}}</mat-card-subtitle>
+                <mat-card-content>
+                    <mat-slider vertical [max]="180" [min]="-180" formControlName="a2" thumb-label="true" step="1">
+                    </mat-slider>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="result">
+                <mat-card-title>Gyro</mat-card-title>
+                <mat-card-subtitle>{{gyro | number:'1.0-2'}}</mat-card-subtitle>
+                <mat-card-content>
+                    <mat-slider vertical [max]="180" [min]="-180" formControlName="gyro" thumb-label="true" step="1">
+                    </mat-slider>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        </form>
+    </div>
+
+
 </div>

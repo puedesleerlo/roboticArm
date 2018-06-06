@@ -1,5 +1,35 @@
 .container {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
     height: 100%;
   }
+
+.controlGrid {
+  display: grid;
+  grid-template-rows: 0.3fr 1fr 1fr;
+  grid-row-start: auto;
+}
+.positionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.angleGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.cartesianGrid {
+  display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.cartesianGrid > * {
+  flex: 1;
+  width: 30px;
+  margin-right: 15px;
+}
+.graph {
+  background: #ececff;
+  margin: 30px;
+}

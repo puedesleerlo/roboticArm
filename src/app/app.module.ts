@@ -13,6 +13,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TraditionalComponent } from './traditional/traditional.component';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { TraditionalComponent } from './traditional/traditional.component';
     MatSlideToggleModule,
     MatInputModule,
     MatButtonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
