@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   r1 = 40;
   r2 = 40;
   r3 = 40;
-  x = 120;
+  x = 127;
   y = 0;
   angle = 0;
   a1 = 0;
@@ -37,23 +37,22 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.angleForm.valueChanges.subscribe(data => {
       var ob = this.directKinematics(data.a1*TORAD, data.a2*TORAD, data.a3*TORAD);
-      this.x = ob.x
-      this.y = ob.y
+      // this.x = ob.x
+      // this.y = ob.y
       this.a1 = data.a1*TORAD
       this.a2 = data.a2*TORAD
       this.a3 = data.a3*TORAD
-      this.gyro = data.gyro
     });
     this.positionForm.valueChanges.subscribe(data => {
       var ob = this.inverseKinematics(data.x, data.y, data.angle*TORAD, data.sigma);
-      console.log(data)
-      console.log(this.directKinematics(ob.a1, ob.a2, ob.a3))
+      // console.log(data)
+      // console.log(this.directKinematics(ob.a1, ob.a2, ob.a3))
       this.x = data.x
       this.y = data.y
-      this.angle = data.angle*TORAD
-      this.a1 = ob.a1
-      this.a2 = ob.a2
-      this.a3 = ob.a3
+      // this.angle = data.angle*TORAD
+      // this.a1 = ob.a1
+      // this.a2 = ob.a2
+      // this.a3 = ob.a3
     });
 
   }

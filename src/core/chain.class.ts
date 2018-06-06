@@ -12,7 +12,7 @@ import { Bone } from './bone.class';
 
     solveDistanceThreshold = 1.0;
     minIterationChange = 0.01;
-    maxIteration = 15;
+    maxIteration = 120;
     precision = 0.001;
     
     chainLength = 0;

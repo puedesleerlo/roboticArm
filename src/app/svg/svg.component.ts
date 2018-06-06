@@ -44,6 +44,7 @@ export class SvgComponent implements OnInit {
 
   }
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+    
     this.chain.solveForTarget(new V2(this.x, this.y))
     var numBones = this.chain.numBones
     var b, pos, pos2
@@ -51,6 +52,8 @@ export class SvgComponent implements OnInit {
       b = this.chain.bones[j];
       pos = b.getStartLocation();
       pos2 = b.getEndLocation();
+      console.log(pos2)
+      
     }
   }
 }
