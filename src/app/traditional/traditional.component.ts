@@ -1,4 +1,5 @@
 import { Component, OnInit, SimpleChange, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 declare interface LinkPosition {
   [index: number]: { r: number;  z: number;};
 }
@@ -18,13 +19,25 @@ export class TraditionalComponent implements OnInit {
   @Input() gyro: number;
   @Input() r2: number;
   @Input() r1: number;
+  @Input() positions: Observable<any>;
   linkposition: LinkPosition = []; 
   anglePosition: AnglePosition = [];
+  points: any[];
   constructor() {
    }
 
   ngOnInit() {
-      
+      this.positions.subscribe(data => {
+        
+        this.points = data.map(d => {
+          d.r = Math.sqrt(d.xPoint.q*d.xPoint.q + d.yPoint.q^2*d.xPoint.q)
+          d.x = d.xPoint.q
+          d.y = d.yPoint.q
+          d.z = d.zPoint.q
+          delete d.xPoint, d.yPoint, d.zPoint
+          return d
+        })
+      })
 
   }
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
@@ -48,9 +61,11 @@ export class TraditionalComponent implements OnInit {
       x: this.linkposition[2].r*Math.cos(this.gyro),
       y: this.linkposition[2].r*Math.sin(this.gyro)
     }
-
-
     console.log(this.linkposition[2])
+  }
+
+  updateAngles(a1, a2, gyro) {
+    
   }
 
 }

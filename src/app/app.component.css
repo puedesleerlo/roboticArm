@@ -1,13 +1,14 @@
 .container {
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-columns: 0.7fr 3fr 1fr;
     height: 100%;
   }
 
 .controlGrid {
   display: grid;
-  grid-template-rows: 0.3fr 1fr 1fr;
+  grid-template-rows: 0.3fr 0.3fr 1fr 1fr;
   grid-row-start: auto;
+  align-items: center;
 }
 .positionGrid {
   display: grid;
@@ -32,4 +33,13 @@
 .graph {
   background: #ececff;
   margin: 30px;
+}
+.targets {
+  margin: 12px;
+  text-align: center;
+  /* display: grid;
+  grid-template-rows: 350px 100px 1fr;
+  align-items: center;
+  justify-content: center;
+  height: 100% */
 }

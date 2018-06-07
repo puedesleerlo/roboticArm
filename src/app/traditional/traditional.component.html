@@ -20,3 +20,10 @@
     [attr.x2]="anglePosition[1].x" [attr.y2]="anglePosition[1].y" 
     style="stroke:rgb(255, 0, 0);stroke-width:0.5%" />
 </svg>
+<svg style="overflow: visible"> 
+    <g *ngFor="let point of points">
+        <circle  [attr.cx]="point.x" [attr.cy]="point.y" r="0.5%"   fill="blue" /> 
+        <circle  [attr.cx]="point.x" [attr.cy]="point.z" r="0.5%"   fill="green" /> 
+
+    </g> 
+</svg>
