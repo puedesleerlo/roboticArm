@@ -233,6 +233,7 @@ export class AppComponent implements OnInit {
       let k = this.toCilindrical(xPoint.q, yPoint.q, zPoint.q);
       let kVel = this.toCilindricalVelocity(xPoint.q, yPoint.q, zPoint.q, xPoint.qvel, yPoint.qvel, zPoint.qvel)
       let obj = this.inversePolarKinematics(k.r, k.z, k.phi, this.sigma, this.r1, this.r2);
+      console.log("interpolation", obj.a1, obj.a2)
       let objVel = this.inverseVelocityKinematics(
         k.r, 
         k.z, 
@@ -274,7 +275,6 @@ export class AppComponent implements OnInit {
     
     let gamma = 1/(Math.sqrt(1- numerador/denominador)*denominador)
     if(!gamma || gamma == Infinity) gamma = 0;
-    console.log(gamma)
     var a2Vel = (r*rVel + z*zVel)*gamma;
     var twoR = r^2 + z^2
     var sigma = -r1*(r2 + r1*Math.cos(a2))/(r2^2 + 2*r1*r2*Math.cos(a2))
@@ -302,7 +302,7 @@ export class AppComponent implements OnInit {
     var angles = trajectory.angles
     var velocities = trajectory.velocities
     angles.forEach((elem, index) => {
-      console.log(elem)
+      console.log("makeCode", elem.a2*TODEG, elem.a2)
       var a1 = (elem.a1/rad18).toFixed(2)
       var a2 = (elem.a2/rad18).toFixed(2)
       var gyro = (elem.gyro/rad18).toFixed(2)
