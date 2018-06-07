@@ -232,7 +232,7 @@ export class AppComponent implements OnInit {
       let zPoint = this.polinomio(lapsus, coeficientesZ); 
       let k = this.toCilindrical(xPoint.q, yPoint.q, zPoint.q);
       let kVel = this.toCilindricalVelocity(xPoint.q, yPoint.q, zPoint.q, xPoint.qvel, yPoint.qvel, zPoint.qvel)
-      let obj = this.inversePolarKinematics(k.r, k.phi, k.z, this.sigma, this.r1, this.r2);
+      let obj = this.inversePolarKinematics(k.r, k.z, k.phi, this.sigma, this.r1, this.r2);
       let objVel = this.inverseVelocityKinematics(
         k.r, 
         k.z, 
