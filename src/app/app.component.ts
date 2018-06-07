@@ -46,6 +46,7 @@ export class AppComponent implements OnInit {
   currentTrajectory: any
   positions = new BehaviorSubject<any>([]);
   gcode: string;
+  isWorkingSpace: boolean
   constructor() {
     this.angleForm = new FormGroup ({
       a1: new FormControl(this.a1),
@@ -150,6 +151,10 @@ export class AppComponent implements OnInit {
   toDegrees (angle) {
     return angle * (180 / Math.PI);
   }
+
+  get space() {
+    return this.isWorkingSpace ? "Working Space": "Joint Space"
+  }
   // generateTrajectory(targets, time, points) {
   //   var chunks = this.arrayChunks(targets)
   //   let trajectory = []
@@ -248,7 +253,7 @@ export class AppComponent implements OnInit {
         this.r2)
       velocities.push(objVel)
       angles.push(obj);
-      positions.push({xPoint, yPoint, zPoint})
+      positions.push({x: xPoint.q, y: yPoint.q, z: zPoint.q})
     }
     
     return {angles, velocities, positions}
@@ -292,9 +297,57 @@ export class AppComponent implements OnInit {
   }
   submitTrajectory() {
     var val = this.trajectoryForm.value
-    var a = this.interpolation(val.time, val.points, val.initTarget, val.finalTarget);
+    var a;
+    if(this.isWorkingSpace) {
+      
+      a = this.interpolation(val.time, val.points, val.initTarget, val.finalTarget);
+    }
+    else {
+      a = this.interpolationAngles(val.time, val.points, val.initTarget, val.finalTarget)
+    }
+    
     this.positions.next(a.positions);
     return a
+  }
+  interpolationAngles(time, points, iTarget: Target, fTarget: Target) {
+    
+    var coeficientesA1 = this.coeficientes(
+      iTarget.a1, 
+      fTarget.a1, 
+      iTarget.xVel, 
+      fTarget.xVel, 
+      time
+    )
+    var coeficientesA2 = this.coeficientes(
+      iTarget.a2, 
+      fTarget.a2, 
+      iTarget.yVel, 
+      fTarget.yVel, 
+      time
+    )
+    var coeficientesGyro = this.coeficientes(
+      iTarget.gyro, 
+      fTarget.gyro, 
+      iTarget.zVel, 
+      fTarget.zVel, 
+      time
+    )
+    var angles = []
+    var positions = []
+    var velocities = []
+    var interval = time/points;
+    for (let i = 0; i <= points; i++) {
+      let lapsus = i*interval    
+      let a1Point = this.polinomio(lapsus, coeficientesA1);
+      let a2Point = this.polinomio(lapsus, coeficientesA2);
+      let gyroPoint = this.polinomio(lapsus, coeficientesGyro); 
+      let obj = this.directPolarKinematics(a1Point.q, a2Point.q, gyroPoint.q)
+      velocities.push({a1Vel: a1Point.qvel, a2Vel: a2Point.qvel, gyroVel: gyroPoint.qvel})
+      angles.push({a1: a1Point.q, a2: a2Point.q, gyro: gyroPoint.q});
+      var car = this.toCartesian(obj.r, obj.z, obj.phi)
+      positions.push({x: car.x, y: car.y, z:car.z})
+    }
+    return {angles, velocities, positions}
   }
   makeGcode(trajectory) {
     var rad18 = 0.0314159
@@ -306,6 +359,7 @@ export class AppComponent implements OnInit {
       var a1 = (elem.a1/rad18).toFixed(2)
       var a2 = (elem.a2/rad18).toFixed(2)
       var gyro = (elem.gyro/rad18).toFixed(2)
+      console.log(elem.a1, a1)
       var feedRate = Math.pow(velocities[index].a1Vel, 2)
         Math.pow(velocities[index].a2Vel,2) +
         Math.pow(velocities[index].gyroVel,2);

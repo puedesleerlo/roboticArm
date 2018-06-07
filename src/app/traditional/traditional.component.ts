@@ -29,14 +29,7 @@ export class TraditionalComponent implements OnInit {
   ngOnInit() {
       this.positions.subscribe(data => {
         
-        this.points = data.map(d => {
-          d.r = Math.sqrt(d.xPoint.q*d.xPoint.q + d.yPoint.q^2*d.xPoint.q)
-          d.x = d.xPoint.q
-          d.y = d.yPoint.q
-          d.z = d.zPoint.q
-          delete d.xPoint, d.yPoint, d.zPoint
-          return d
-        })
+        this.points = data
       })
 
   }

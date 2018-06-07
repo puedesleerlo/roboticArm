@@ -1,6 +1,7 @@
 <mat-toolbar color="primary">Robot revolute-revolute</mat-toolbar>
 <div class="container">
     <div class="targets">
+            <mat-slide-toggle [(ngModel)]= "isWorkingSpace">{{space}}</mat-slide-toggle>
         <form [formGroup]="trajectoryForm">
                 <mat-input-container>
                         <input placeholder="time" formControlName="time" matInput type="number" name="velocity">
